@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima_Gene</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3a5f, #3b82f6);
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+            color: #ffa500;
+        }
+        form input {
+            width: calc(100% - 24px);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+        }
+        form button {
+            background-color: #ffa500;
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        form button:hover {
+            background-color: #ff7700;
+        }
+        .weather-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .weather-card h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .weather-details {
+            font-size: 1rem;
+            line-height: 1.8;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .weather-details p {
+            flex: 1 1 45%;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .weather-icon {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .btn-cv {
+            background-color: #ffa500;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+        .btn-cv:hover {
+            background-color: #ff7700;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tu Clima Ya</h1>
+        <a href="/cv" class="btn-cv">Currículum</a>
+    </header>
+    <div class="container">
+        <form method="POST">
+            <input type="text" name="city" placeholder="Ingrese ciudad" required>
+            <button type="submit">Consultar</button>
+        </form>
+
+        {% if data %}
+        <div class="weather-card">
+            <h2>{{ data.name }}</h2>
+            <div class="weather-icon">
+                <img src="http://openweathermap.org/img/wn/{{ data.weather[0].icon }}@2x.png" alt="Icono del clima">
+            </div>
+            <div class="weather-details">
+                <p><strong>Latitud:</strong> {{ data.coord.lat }}</p>
+                <p><strong>Longitud:</strong> {{ data.coord.lon }}</p>
+                <p><strong>Temperatura:</strong> {{ data.main.temp }}°C</p>
+                <p><strong>Clima:</strong> {{ data.weather[0].description }}</p>
+                <p><strong>Viento:</strong> {{ data.wind.speed }} km/h</p>
+                <p><strong>Humedad:</strong> {{ data.main.humidity }}%</p>
+                        </div>
+        </div>
+        {% elif error %}
+        <p>{{ error }}</p>
+        {% endif %}
+    </div>
+    <footer>
+        <p>Hecho por Genesis Ortiz © 2024</p>
+    </footer>
+</body>
+</html>
